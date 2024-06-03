@@ -19,3 +19,4 @@ mongoose.connect(customEnvironmentvar.db_uri).then((): void => {
 }).catch((err): void => {
   console.log(err);
 })
+

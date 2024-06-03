@@ -4,7 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const auth_route_1 = __importDefault(require("./auth.route"));
+const product_route_1 = __importDefault(require("./product.route"));
 const routes = [
+    {
+        path: '/api/product',
+        handler: product_route_1.default
+    },
     {
         path: '/api/auth',
         handler: auth_route_1.default
