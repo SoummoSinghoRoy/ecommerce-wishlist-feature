@@ -1,4 +1,4 @@
-async function fetchProductsExtarnally() {
+async function fetchProductsExtarnally(): Promise<void> {
   try {
     const response = await fetch('https://freetestapi.com/api/v1/birds', {
       method: 'get'
