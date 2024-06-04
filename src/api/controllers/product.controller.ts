@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import fetchProductsExtarnally from "../../utils/fetchProducts.ts";
+import fetchProductsExtarnally from "../../utils/fetchProducts";
 import Product from "../../model/Product.model";
 import Wishlist from "../../model/Wishlist.model";
 import { CustomRequest } from "../../middlewares/isAuthenticated.middleware";

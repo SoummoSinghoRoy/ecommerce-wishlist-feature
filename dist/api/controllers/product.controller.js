@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wishlistAddPostController = exports.productsFetchController = void 0;
-const fetchProducts_ts_1 = __importDefault(require("../../utils/fetchProducts.ts"));
+const fetchProducts_1 = __importDefault(require("../../utils/fetchProducts"));
 const Product_model_1 = __importDefault(require("../../model/Product.model"));
 const Wishlist_model_1 = __importDefault(require("../../model/Wishlist.model"));
 const productSuggestion_js_1 = __importDefault(require("../../utils/productSuggestion.js"));
@@ -21,7 +21,7 @@ const productsFetchController = (req, res) => __awaiter(void 0, void 0, void 0, 
     try {
         const productsSize = yield Product_model_1.default.countDocuments();
         if (productsSize === 0) {
-            const fetchProducts = yield (0, fetchProducts_ts_1.default)();
+            const fetchProducts = yield (0, fetchProducts_1.default)();
             yield Product_model_1.default.insertMany(fetchProducts);
             const products = yield Product_model_1.default.find();
             const response = {
