@@ -16,6 +16,6 @@ That's it! The api service should now be running on your local machine.
 The Api Service was developed using Node.js, Express.js and MongoDB. It allows you to manage user products wishlist & relevant product suggestion in the application.
 
 > ### Service Information
-***url:*** [document](https://github.com/SoummoSinghoRoy/ecommerce-wishlist-feature.git)
+***url:*** [document](https://github.com/SoummoSinghoRoy/ecommerce-wishlist-feature/blob/765f97a520e89be8c04c1b9dbf98fd0d89d05d7b/document/project_documentation.md)
 
 ### *Give it a try today!*
