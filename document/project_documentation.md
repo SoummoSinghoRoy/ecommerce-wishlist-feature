@@ -1,4 +1,4 @@
-## *Bird Selling E-Commerce Site Wistlist & Product Suggestion Feature API Service Documentation*
+## *E-Commerce Site Wishlist & Product Suggestion Feature API Service Documentation*
 
 ### Introduction
 
@@ -6,8 +6,8 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 
 > **Technology & Tools**: Express js, mongodb with typescript supported.
 
-> **Server listen URI(localhost)**: `"localhost:8552"`
-> **Example of usage**: `"server-listen-uri/api-endpoint"`
+**Server listen URI(localhost)**: `"localhost:8552"`
+**Example of usage**: `"server-listen-uri/api-endpoint"`
 
 ### *Authentication Endpoints*
 
@@ -33,15 +33,15 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 - **Example response**
 
 ```
-  {
-    "status": 200,
-    "message": "User successfully created",
-    "data": {
-        "id": "665f6b996838577cd2a6cc6e",
-        "username": "sandy",
-        "email": "sandybe0@gmail.com"
-    }
+{
+  "status": 200,
+  "message": "User successfully created",
+  "data": {
+      "id": "665f6b996838577cd2a6cc6e",
+      "username": "sandy",
+      "email": "sandybe0@gmail.com"
   }
+}
 ```
 
 > **login**
@@ -81,8 +81,8 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 - **Endpoint: `"/api/auth/logout"`**  
 - **Method:** POST
 - **Request headers:** Yes
-  - **header key**: `authorization`
-  - **value**: `token`
+  - header key: `authorization`
+  - value: `token`
 - **Description:** Logout from api service or server.
 - **Example header request**
 
@@ -109,50 +109,50 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 - **Endpoint: `"/api/product/all"`***(recommended to fetch products first by this api call)* 
 - **Method:** GET
 - **Description:** Fetch all products.
-  - **Note**: Since here using local database server, products are initially retrieved from an external API and stored in produc DB. Subsequent calls to the external API are avoided. This api calling handle by **`fetchProductsExtarnally`** function. 
+  - **Note**: Since here using local database server, products are initially retrieved from an external API and stored in product DB. Subsequent calls to the external API are avoided. This api calling handle by **`fetchProductsExtarnally`** function. 
 - **Request headers:** No
 - **Example response**
 
 ```
 {
-"status": 200,
-"message": "Successfully retrieved",
-"data": {
-  "products": [
-      {
-        "_id": "665f63e9d1c6fee257577dd1",
-        "name": "Bald Eagle",
-        "species": "Haliaeetus leucocephalus",
-        "family": "Accipitridae",
-        "habitat": "Forests, Coasts, and Lakes",
-        "place_of_found": "North America",
-        "diet": "Carnivore",
-        "description": "The bald eagle is a powerful bird of prey known for its white head and tail feathers.",
-        "wingspan_cm": 200,
-        "weight_kg": 6.3,
-        "image": "https://fakeimg.pl/500x500/cc7701",
-        "__v": 0,
-        "createdAt": "2024-06-04T18:58:49.126Z",
-        "updatedAt": "2024-06-04T18:58:49.126Z"
-      },
-      {
-        "_id": "665f63e9d1c6fee257577dd2",
-        "name": "Peacock",
-        "species": "Pavo cristatus",
-        "family": "Phasianidae",
-        "habitat": "Forests and Grasslands",
-        "place_of_found": "India",
-        "diet": "Omnivore",
-        "description": "The peacock is a large and colorful bird known for its extravagant tail feathers.",
-        "wingspan_cm": 160,
-        "weight_kg": 4.5,
-        "image": "https://fakeimg.pl/500x500/cc7702",
-        "__v": 0,
-        "createdAt": "2024-06-04T18:58:49.127Z",
-        "updatedAt": "2024-06-04T18:58:49.127Z"
-      },
-      more records...
-    ]
+  "status": 200,
+  "message": "Successfully retrieved",
+  "data": {
+    "products": [
+        {
+          "_id": "665f63e9d1c6fee257577dd1",
+          "name": "Bald Eagle",
+          "species": "Haliaeetus leucocephalus",
+          "family": "Accipitridae",
+          "habitat": "Forests, Coasts, and Lakes",
+          "place_of_found": "North America",
+          "diet": "Carnivore",
+          "description": "The bald eagle is a powerful bird of prey known for its white head and tail feathers.",
+          "wingspan_cm": 200,
+          "weight_kg": 6.3,
+          "image": "https://fakeimg.pl/500x500/cc7701",
+          "__v": 0,
+          "createdAt": "2024-06-04T18:58:49.126Z",
+          "updatedAt": "2024-06-04T18:58:49.126Z"
+        },
+        {
+          "_id": "665f63e9d1c6fee257577dd2",
+          "name": "Peacock",
+          "species": "Pavo cristatus",
+          "family": "Phasianidae",
+          "habitat": "Forests and Grasslands",
+          "place_of_found": "India",
+          "diet": "Omnivore",
+          "description": "The peacock is a large and colorful bird known for its extravagant tail feathers.",
+          "wingspan_cm": 160,
+          "weight_kg": 4.5,
+          "image": "https://fakeimg.pl/500x500/cc7702",
+          "__v": 0,
+          "createdAt": "2024-06-04T18:58:49.127Z",
+          "updatedAt": "2024-06-04T18:58:49.127Z"
+        },
+        more records...
+      ]
   }
 }
 ```
@@ -216,19 +216,24 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 ### *Functional Explaination*
 
 > **fetchProductsExtarnally**(recommended to fetch products initially after new installation)
+
 This function fetches demo products from an external API `"https://freetestapi.com/api/v1/birds"` and returns the retrieved data. It only executes if the product store is empty & storing retrieved data in product DB otherwise don't execute this function. In both cases (empty or existing products), it retrieves all products from the database and returns them.
 
 > **suggestProduct**(parameter: userid, selectedItemId, queryValue)
+
 - Input Parameters:
   - userid: Identifies the user for whom product suggestions are being generated.
   - selectedItemId: An item ID to exclude from suggestions
   - queryValue: A value to filter product for suggestion
-In both cases (empty or existing wishlist), this function will execute. 
-- **Work process:  
-              - Query wishlist by authenticated user id & populate products.
-              - Extract existing product id which helping to exclude product from suggesion.  
-              - Combine previous product id & current selected id 
-              - Finally, querying suggested products & returns.
+
+In both cases (empty or existing wishlist), this function will execute.
+
+- Work process:  
+  - Query wishlist by authenticated user id & populate products.
+  - Extract existing product id which helping to exclude product from suggesion.  
+  - Combine previous product id & current selected id 
+  - Finally, querying suggested products & returns.
+
 
 
 ## *Summary:*
