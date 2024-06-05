@@ -7,6 +7,7 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 > **Technology & Tools**: Express js, mongodb with typescript supported.
 
 **Server listen URI(localhost)**: `"localhost:8552"`
+
 **Example of usage**: `"server-listen-uri/api-endpoint"`
 
 ### *Authentication Endpoints*
@@ -214,6 +215,7 @@ Welcome to the API documentation for the e-commerce wishlist management & produc
 ```
 
 ### *Functional Explaination*
+
 
 > **fetchProductsExtarnally**(recommended to fetch products initially after new installation)
 
