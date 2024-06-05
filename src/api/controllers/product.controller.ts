@@ -1,20 +1,11 @@
 import { Request, Response } from "express";
+import { ProductApiResponse } from '../../Types/types';
+
 import fetchProductsExtarnally from "../../utils/fetchProducts";
 import Product from "../../model/Product.model";
 import Wishlist from "../../model/Wishlist.model";
 import { CustomRequest } from "../../middlewares/isAuthenticated.middleware";
 import suggestProduct from "../../utils/productSuggestion.js";
-
-interface ApiResponse {
-  status: number;
-  message?: string;
-  error?: {
-    message: string | object
-  };
-  data?: {
-    [key: string]: [] | object
-  }
-}
 
 export const productsFetchController = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -23,7 +14,7 @@ export const productsFetchController = async (req: Request, res: Response): Prom
       const fetchProducts = await fetchProductsExtarnally();
       await Product.insertMany(fetchProducts)
       const products = await Product.find();
-      const response: ApiResponse = {
+      const response: ProductApiResponse = {
         status: 200,
         message: 'Successfully retrieved',
         data: {
@@ -33,7 +24,7 @@ export const productsFetchController = async (req: Request, res: Response): Prom
       res.json(response) 
     } else {
       const products = await Product.find();
-      const response: ApiResponse = {
+      const response: ProductApiResponse = {
         status: 200,
         message: 'Successfully retrieved',
         data: {
@@ -44,7 +35,7 @@ export const productsFetchController = async (req: Request, res: Response): Prom
     }
   } catch (error) {
     console.log(error);
-    const response: ApiResponse = {
+    const response: ProductApiResponse = {
       status: 500,
       message: 'Error occurred, get back soon',
       error: { message: 'Internal server error' }
@@ -67,7 +58,7 @@ export const wishlistAddPostController = async (req: Request, res: Response): Pr
         })
         await newWishlist.save();
         const suggestedProducts = await suggestProduct(customReq.user?.id, itemId, product.family);
-        const response: ApiResponse = {
+        const response: ProductApiResponse = {
           status: 200,
           message: 'Item saved in wishlist',
           data: {
@@ -83,7 +74,7 @@ export const wishlistAddPostController = async (req: Request, res: Response): Pr
           { new: true }
         );
         const suggestedProducts = await suggestProduct(customReq.user?.id, itemId, product.family);
-        const response: ApiResponse = {
+        const response: ProductApiResponse = {
           status: 200,
           message: 'Item saved in wishlist',
           data: {
@@ -94,7 +85,7 @@ export const wishlistAddPostController = async (req: Request, res: Response): Pr
         res.json(response)
       }
     } else {
-      const response: ApiResponse = {
+      const response: ProductApiResponse = {
         status: 404,
         message: 'Product not found',
       }
@@ -102,7 +93,7 @@ export const wishlistAddPostController = async (req: Request, res: Response): Pr
     }
   } catch (error) {
     console.log(error);
-    const response: ApiResponse = {
+    const response: ProductApiResponse = {
       status: 500,
       message: 'Error occurred, get back soon',
       error: { message: 'Internal server error' }

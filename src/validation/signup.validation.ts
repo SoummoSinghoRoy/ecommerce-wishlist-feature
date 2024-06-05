@@ -1,16 +1,6 @@
 import validator from 'validator';
+import { SignUpRequestBody, SignUpValidationResult } from '../Types/types';
 import User from '../model/User.model';
-
-interface SignUpRequestBody {
-  username: string;
-  email: string;
-  password: string;
-}
-
-interface SignUpValidationResult {
-  error: object;
-  isValid: boolean;
-}
 
 const signupValidation = async (signuprequestbody: SignUpRequestBody): Promise<SignUpValidationResult> => {
   let error: { [field: string]: string } = {};

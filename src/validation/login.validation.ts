@@ -1,15 +1,8 @@
-import User from '../model/User.model';
 import bcrypt from 'bcrypt';
+import { LogInRequestBody, LogInValidationResult } from '../Types/types';
+import User from '../model/User.model';
 
-interface LogInRequestBody {
-  email: string;
-  password: string;
-}
 
-interface LogInValidationResult {
-  error: object;
-  isValid: boolean;
-}
 
 const logInValidation = async (loginrequestbody: LogInRequestBody): Promise<LogInValidationResult> => {
   let error: { [field: string]: string } = {};

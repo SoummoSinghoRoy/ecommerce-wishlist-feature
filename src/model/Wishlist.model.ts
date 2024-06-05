@@ -1,9 +1,5 @@
-import { Schema, model, ObjectId } from 'mongoose';
-
-interface IWishlist {
-  userId: ObjectId,
-  products: ObjectId[]
-}
+import { Schema, model } from 'mongoose';
+import { IWishlist } from '../Types/types';
 
 const wishlistSchema = new Schema<IWishlist>({
   userId: {

@@ -1,8 +1,5 @@
 import { Schema, model } from 'mongoose';
-
-interface IProduct {
-  [key: string]: any
-}
+import { IProduct } from '../Types/types';
 
 const productSchema = new Schema<IProduct>({}, { strict: false, timestamps: true });
 

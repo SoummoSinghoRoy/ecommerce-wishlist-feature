@@ -1,26 +1,12 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { AuthApiResponse } from '../../Types/types';
 import env_variables from '../../config/custom_env_variables';
 
 import signupValidation from "../../validation/signup.validation";
 import User from "../../model/User.model";
 import logInValidation from "../../validation/login.validation";
-
-interface ApiResponse {
-  status: number;
-  error?: {
-    message: string | object
-  };
-  message?: string;
-  data?: {
-    id?: any;
-    username?: string;
-    email?: string;
-  },
-  token?: any;
-  isAuthenticated?: boolean;
-}
 
 export const signUpPostController = async (req: Request, res: Response): Promise<void> => {
   const { username, email, password } = req.body;
@@ -28,7 +14,7 @@ export const signUpPostController = async (req: Request, res: Response): Promise
   const validation = await signupValidation({ username, email, password });
 
   if (!validation.isValid) {
-    const validationresult: ApiResponse = {
+    const validationresult: AuthApiResponse = {
       status: 400,
       message: 'Error occurred',
       error: {
@@ -41,7 +27,7 @@ export const signUpPostController = async (req: Request, res: Response): Promise
       bcrypt.hash(password, 10, async (err, hash) => {
         if (err) {
           console.log(err);
-          const response: ApiResponse = {
+          const response: AuthApiResponse = {
             status: 500,
             message: 'Error occurred, get back soon',
             error: { message: 'Internal server error' }
@@ -54,7 +40,7 @@ export const signUpPostController = async (req: Request, res: Response): Promise
             password: hash,
           })
           const user = await registeredUser.save()
-          const response: ApiResponse = {
+          const response: AuthApiResponse = {
             status: 200,
             message: 'User successfully created',
             data: {
@@ -68,7 +54,7 @@ export const signUpPostController = async (req: Request, res: Response): Promise
       })
     } catch (error) {
       console.log(error);
-      const response: ApiResponse = {
+      const response: AuthApiResponse = {
         status: 500,
         message: 'Error occurred, get back soon',
         error: { message: 'Internal server error' }
@@ -83,7 +69,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
 
   const validation = await logInValidation({ email, password });
   if (!validation.isValid) {
-    const validationresult: ApiResponse = {
+    const validationresult: AuthApiResponse = {
       status: 400,
       message: 'Error occurred',
       error: {
@@ -100,7 +86,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
       }, env_variables.secret_key, { expiresIn: '12h' }, (err, token) => {
         if (err) {
           console.log(err);
-          const response: ApiResponse = {
+          const response: AuthApiResponse = {
             status: 500,
             message: 'Error occurred, get back soon',
             error: { message: 'Internal server error' }
@@ -108,7 +94,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
           res.json(response)
         }
         if (token) {
-          const response: ApiResponse = {
+          const response: AuthApiResponse = {
             status: 200,
             message: 'Successfully loggedin',
             isAuthenticated: true,
@@ -120,7 +106,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
           }
           res.json(response);
         } else {
-          const response: ApiResponse = {
+          const response: AuthApiResponse = {
             status: 401,
             message: 'Authorization failed',
             isAuthenticated: false
@@ -130,7 +116,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
       })
     } catch (error) {
       console.log(error);
-      const response: ApiResponse = {
+      const response: AuthApiResponse = {
         status: 500,
         message: 'Error occurred, get back soon',
         error: { message: 'Internal server error' }
@@ -142,7 +128,7 @@ export const logInPostController = async (req: Request, res: Response): Promise<
 
 export const logoutPostController = async (req: Request, res: Response): Promise<void> => {
   try {    
-    const response: ApiResponse = {
+    const response: AuthApiResponse = {
       status: 200,
       message: 'Successfully loggedout',
       isAuthenticated: false
@@ -150,7 +136,7 @@ export const logoutPostController = async (req: Request, res: Response): Promise
     res.json(response)
   } catch (error) {
     console.log(error);
-    const response: ApiResponse = {
+    const response: AuthApiResponse = {
       status: 500,
       message: 'Error occurred, get back soon',
       error: { message: 'Internal server error' }
